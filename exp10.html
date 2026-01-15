@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="jquery-3.7.1.min.js"></script>
+    <style>
+        div{
+            width: 500px;
+            height: 200px;
+            padding: 10px;
+            margin: 10px;
+            border: solid 2px black;
+        }
+    </style>
+</head>
+<body>
+
+
+
+    <h2>AJAx without jQuery</h2>
+    <div id="box1"></div>
+    <button onclick="load()">Click</button>
+
+    <script>
+    function load(){
+        let x = new XMLHttpRequest();
+        x.open("GET","te.txt",true);
+        x.onload = function(){
+            document.getElementById("box1").innerText = this.responseText;
+        }
+        x.send();
+    }
+    </script>
+
+
+
+
+    <h2>AJAx with jQuery</h2>
+    <div id="box2"></div>
+    <button id="jque">Click</button>
+    <script>
+        $("#jque").click(function(){
+            $.ajax({
+                url: "te.txt",
+                success: function(result){
+                    $("#box2").text(result);
+                }
+            });
+        });
+    </script>
+
+
+
+
+    <h2>AJAx getJSON</h2>
+    <div id="box3"></div>
+    <button id="jget">Click</button>
+
+    <script>
+        $("#jget").click(function(){
+            $.getJSON("data.json", function(data){
+                $("#box3").html(
+                "Name: " + data.Name +
+                "<br> Age: " + data.Age +
+                "<br> City: " + data.City
+            );
+            })
+        })
+    </script>
+
+
+
+    <h2>AJAx Parse</h2>
+    <div id="box4"></div>
+    <button id="jpar">Click</button>
+
+    <script>
+        $("#jpar").click(function(){
+            let txt = '{"Name":"exp9.html","Age":20}';
+            let obj = JSON.parse(txt);
+            $("#box4").html(
+                "Name :" + obj.Name +
+                "<br> Age :" + obj.Age
+            )
+        })
+    </script>
+
+
+
+
+
+</body>
+</html>
